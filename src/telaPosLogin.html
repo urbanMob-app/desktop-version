@@ -1,0 +1,514 @@
+<!DOCTYPE HTML>
+<html lang="pt-BR">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta http-equiv="Content-Language" content="pt-br">
+        <meta http-equiv="Access-Control-Allow-Origin" content="*">
+        <meta name="format-detection" content="telephone=no">
+        <meta name="msapplication-tap-highlight" content="no">
+        <meta http-equiv="x-ua-compatible" content="IE=edge" />
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-touch-fullscreen" content="yes">
+        <link href='https://api.mapbox.com/mapbox.js/v3.1.1/mapbox.css' rel='stylesheet' />
+        <link rel="stylesheet" type="text/css" href="css/telaPosLogin.css" />
+        <link rel="stylesheet" type="text/css" href="css/addStyle.css" />
+        <link rel="stylesheet" type="text/css" href="css/swiper.min.css">
+        <link rel="stylesheet" type="text/css" href="css/jquery-confirm.min.css">
+        <link rel="stylesheet" type="text/css" href="css/Chart.min.css">
+        <script type="text/javascript" src="js/jquery-3.5.1.js"></script>
+        <script type="text/javascript" src="js/jquery.mask.min.js"></script>
+        <script src='https://api.mapbox.com/mapbox.js/v3.1.1/mapbox.js'></script>
+        <script type="text/javascript" src="js/popover.min.js"></script>
+        <script type="text/javascript" src="js/jquery-confirm.min.js"></script>
+        <script type="text/javascript" src="js/swiper.min.js"></script> 
+        <script type="text/javascript" src="js/moment.js"></script>
+        <script type="text/javascript" src="js/underscore.js"></script>
+        <script type="text/javascript" src="js/clndr.js"></script>
+        <script type="text/javascript" src="js/Chart.min.js"></script>
+        <script type='text/javascript' src='js/Chart.plugin.js'></script>
+        <script type="text/javascript" src="https://www.m1desenvolvimento.com.br/urbanmob/engine.js.php"></script>
+        <title>urbanMob</title>
+    </head>
+    <body>
+            <div id="alertTelaDiv"> 
+                <div id="alertTelaDivCentro">
+                    <table width="100%" height="100%" cellspacing="0" cellpadding="12">
+                        <tr>
+                            <td id="alertTelaTd" align=center valign=center width="100%" height="100%">
+                            </td>
+                        </tr>
+                    </table>
+                </div>          
+            </div>
+            <div id="pausaDeTelaDiv">            
+                    <div id="pausaDeTelaDivCentro">
+                        <table width="100%" height="100%" cellspacing="0" cellpadding="0">
+                            <tr>
+                                <td align=center valign=center width="100%" height="100%"><img src="img/progressbar.gif" class="progressbar"></td>
+                            </tr>
+                        </table>
+                    </div>          
+            </div>
+        <div class="snap-drawers">
+            <div class="snap-drawer snap-drawer-left">
+                <div>
+                        <h4 id="dadosmainmenu"></h4>
+                        <ul id="mainmenu" class="mainmenu">
+                            <!-- montagem do menu lateral -  tela secundária -->
+                        </ul>
+                </div>
+            </div>
+            <div class="snap-drawer snap-drawer-right"></div>
+        </div>
+        
+        <div id="content" class="snap-content">
+            <div id="toolbar">
+                <div id="open-left"><a href="#" ></a></div>
+                <div id="navbarVoltar"><a href="#" ></a></div>
+                <h1>UrbanMOB</h1>
+            </div>
+            <div class="app telaAppNivel01" id="telaAppNivel01">
+<!-- ########### Tela inicial ########### -->
+                                    <div class="swiper-container appLargura appPagina" id="appPagina1">
+                                        <div class="swiper-wrapper" id="linksNivelAcesso"></div>
+                                        <div class="swiper-pagination"></div>
+                                    </div>
+<!-- ################################################# -->
+<!-- ########### GRUPO DE TELAS MEU PERFIL ########### -->
+
+<!-- ########### Tela meu perfil inicial ########### -->                                        
+                                        <div id='appMeuPerfilInicio' class='appPagina appLargura2 hidden' draggable='true'>
+                                            <table class='appLargura2' cellspacing="0" cellpadding="0">
+                                                <tr>
+                                                    <td colspan="4" align="right" valign="top" height="60px" class='appLargura2'>
+                                                        <img src="img/meuperfil.png">
+                                                    </td>
+                                                </tr>                                                
+                                                <tr>
+                                                    <td colspan="4" align="center" valign="top" class='appLargura2'>
+                                                        <div id='appMeuPerfilInicioDiv' class="appListaDivScrlolling">
+                                                            <table border=0 id="meuPerfilTable" class="appLargura2">
+                                                                <tr>
+                                                                        <td height="1px"></td>
+                                                                        <td></td>
+                                                                        <td></td>
+                                                                        <td></td>
+                                                                        <td></td>
+                                                                        <td></td>
+                                                                </tr>                                                                
+                                                            </table>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td height="1px"></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>                    
+                                            </table>                                             
+                                        </div>
+<!-- ########### Tela dados pessoais ########### -->
+                                        <div id='appFormDadosPessoais' class='appPagina appLargura2 hidden' draggable='true'>
+                                            <table class='appLargura2' cellspacing="0" cellpadding="0">
+                                                <tr>
+                                                    <td colspan="4" align="right" valign="top" height="60px" class='appLargura2'>
+                                                        <img src="img/dadosPessoais.png">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="4" align="center" valign="top" height="50px" class='appLargura2'>
+                                                        <div id='appFormDadosPessoaisDiv' class="appListaDivScrlolling">
+                                                            <table class='appLargura2' cellspacing="0" cellpadding="0">
+                                                                    <tr>
+                                                                        <td align="center" valign="top" height="90px" width="80px">
+                                                                                    <img id="fotoServidor" class="fotoServidor" src="img/sem_foto.png">
+                                                                                    <span id="spanPerfilAcessoDadosPessoais"></span>
+                                                                        </td>
+                                                                        <td colspan="3" align="right" valign="top" style="height: 90px; padding-left:10px;">
+                                                                                <span id="spanMatriculaDadosPessoais"></span><br>
+                                                                                <span id="spanNomeDadosPessoais"></span><br>
+                                                                                <span id="spanPostoDadosPessoais"></span><br>
+                                                                        </td>
+                                                                    </tr>                                               
+                                                                    <tr>
+                                                                        <td colspan="4" align="center" valign="top" height="50px" class='appLargura2'>
+                                                                            <input id='email' type="text" size="20" class="inputText" name="email" placeholder="Digite seu email" disabled/>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td colspan="4" align="left" valign="top" height="50px" class='appLargura2'>
+                                                                            <input id='endereco' type="text" size="20" class="inputText" name="endereco" placeholder="Digite seu endereço"/>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td colspan="4" align="left" valign="top" height="50px" class='appLargura2'>
+                                                                            <input id='telefone' type="text" size="20" class="inputText telefoneCelular" name="telefone" placeholder="Celular com ddd" />
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td colspan="4" align="left" valign="top" height="50px" class='appLargura2'>
+                                                                            <input id='status' type="text" size="20" class="inputText" name="status" placeholder="Status do usuário" disabled/>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td colspan="4" align="left" valign="top" height="50px" class='appLargura2'>
+                                                                            <button class="button buttonPointer" style="background-color: rgba(127, 191, 63, 0.8);" id="dadosPessoaisBtn" onclick="dadosPessoais();">Salvar</button>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td height="1px"></td>
+                                                                        <td></td>
+                                                                        <td></td>
+                                                                        <td></td>
+                                                                    </tr>
+                                                            </table>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td height="1px"></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>                    
+                                            </table> 
+                                        </div>
+<!-- ########### Tela dispositivos ########### -->                                        
+                                        <div id='appFormDispositivos' class='appPagina appLargura2 hidden' draggable='true'>
+                                            <table class='appLargura2' cellspacing="0" cellpadding="0">
+                                                <tr>
+                                                    <td colspan="4" align="right" valign="top" height="60px" class='appLargura2'>
+                                                        <img src="img/dispositivos.png">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="4" align="center" valign="top" height="50px" class='appLargura2'>
+                                                            <div id='appDispositivosDiv' class="appListaDivScrlolling">
+                                                                    <table id="dispositivosTable" class="lista table-striped appLargura2">
+                                                                            <thead>
+                                                                                <tr>
+                                                                                    <th colspan="4">Dispositivos cadastrados</th>
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody  id="dispositivosTbody">
+                                                                            </tbody>
+                                                                            <tfoot>
+                                                                                <tr>
+                                                                                    <td colspan="4" style="height: 5px; background-color: rgba(0, 0, 0, 0.4)"></td>
+                                                                                </tr>                                                                        
+                                                                            </tfoot>
+                                                                        </table>
+                                                            </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td height="1px"></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>                    
+                                            </table>                                             
+                                        </div>
+<!-- ########### Tela mudar senha ########### -->
+                                        <div id='appFormSenha' class='appPagina appLargura2 hidden' draggable='true'>
+                                            <table class='appLargura2' cellspacing="0" cellpadding="0">
+                                                <tr>
+                                                    <td colspan="4" align="right" valign="top" height="60px" class='appLargura2'>
+                                                        <img src="img/senha.png">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="4" align="center" valign="top" height="50px" class='appLargura2'>
+                                                        <div id='appFormSenhaDiv' class="appListaDivScrlolling">
+                                                            <table class='appLargura2' cellspacing="0" cellpadding="0">
+                                                            <tr>
+                                                                <td colspan="4" align="center" valign="top" height="50px" class='appLargura2'>
+                                                                    <input id='senhaAtual' oninput="validarSenha();" onfocus="validarSenha();" type="password" size="20" class="inputTextCopy" value="" name="senhaAtual" placeholder="Digite sua senha ATUAL" required  style="margin-top: 0px; position: absolute" />
+                                                                    <img src="img/resource_link_images/verificado_null.png" id='verificador' style="margin: 0px; margin-left: 265px; position: relative; cursor: pointer;">
+                                                                </td>
+                                                            </tr>                                                
+                                                            <tr>
+                                                                <td colspan="4" align="center" valign="top" height="50px" class='appLargura2'>
+                                                                    <input id='confirmaSenha1' oninput="validarSenha();" onfocus="validarSenha();" type="password" size="20" class="inputText" value="" name="confirmaSenha1" placeholder="Digite sua nova senha" required style="margin-top: 0px; position: absolute" />
+                                                                    <img src="img/resource_link_images/verificado_null.png" id='verificador2' style="margin: 0px; margin-left: 265px; position: relative; cursor: pointer;">
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td colspan="4" align="left" valign="top" height="50px" class='appLargura2'>
+                                                                    <input id='confirmaSenha2' oninput="validarSenha();" onfocus="validarSenha();" type="password" size="20" class="inputText" value="" name="confirmaSenha2" placeholder="Confirme sua senha" required style="margin-top: 0px; position: absolute" />
+                                                                    <img src="img/resource_link_images/exibirSenha.png" id='imgSenha' onclick="exibirOcultarSenha('confirmaSenha1','imgSenha','inputText');" style="margin: 0px; margin-left: 265px; position: relative; cursor: pointer;">
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td colspan="4" align="left" valign="top" height="50px" class='appLargura2'>
+                                                                    <button class="button buttonPointer" style="background-color: rgba(0, 0, 0, 0.3); " id="mudarSenhaBtn" onclick="mudarSenha();" disabled>Salvar</button>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                    <td colspan="4" align="left" valign="top" height="50px" class='appLargura2'>
+                                                                        <button class="button buttonPointer" style="background-color: #000000" id="redefinirSenhaBtn" onclick="redefinirSenha();">Redefinir Senha</button>
+                                                                    </td>
+                                                            </tr>
+                                                            <tr>
+                                                                    <td height="1px"></td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                            </tr>                                                            
+                                                            </table>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td height="1px"></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>                    
+                                            </table> 
+                                            <script>
+                                                    var input = document.getElementById("confirmaSenha2");
+                                                    input.addEventListener("keyup", function(event) {
+                                                        event.preventDefault();
+                                                        if (event.keyCode === 13) {
+                                                            document.getElementById("mudarSenhaBtn").click();
+                                                        }
+                                                    });
+                                                    </script>                                               
+                                        </div>
+<!-- ########### Tela Centro de Mensagens - listar ########### -->                                        
+                                        <div id='appCentroDeMensagens' class='appPagina appLargura2 hidden' draggable='true'>
+                                            <table class='appLargura2' cellspacing="0" cellpadding="0">
+                                                <tr>
+                                                    <td colspan="4" align="right" valign="top" height="60px" class='appLargura2'>
+                                                        <img src="img/centrodemensagens.png">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="4" align="center" valign="top" class='appLargura2'>
+                                                        <div id='appCentroDeMensagensPublicacoesDiv' class="appListaDivScrlolling">
+                                                            <table id="appCentroDeMensagensTable" class="lista table-striped appLargura2">
+                                                                    <tbody id="appCentroDeMensagensTbody">
+                                                                    </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td height="1px"></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>                    
+                                            </table>                                             
+                                        </div>
+<!-- ########### FIM DE GRUPO DE TELAS MEU PERFIL ########### -->
+
+<!-- ################################################# -->
+<!-- ########### GRUPO DE TELAS PUBLICACOES ########### -->
+<!-- ########### Tela publicações inicial ########### -->
+                                        <div id='appPublicacoesInicio' class='appPagina appLargura2 hidden' draggable='true'>
+                                                <table class='appLargura2' cellspacing="0" cellpadding="0">
+                                                        <tr>
+                                                            <td colspan="4" align="right" valign="top" height="60px" class='appLargura2'>
+                                                                <img src="img/publicacoes.png">
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td colspan="4" align="right" valign="top" height="60px" class='appLargura2'>
+                                                                    <div id='appPublicacoesInicioDiv' class="appListaDivScrlolling">
+                                                                        <table class='appLargura2' cellspacing="0" cellpadding="0">
+                                                                            <tr>
+                                                                                    <td colspan="4" align="center" valign="top" class='appLargura2'>                                                        
+                                                                                            <table id="faleSmtTable" class="appLargura2">
+                                                                                                <tr>
+                                                                                                        <td colspan="6" class='linkNivel2' onclick="publicacoes();">Editais de Penalidades e Defesas</td>
+                                                                                                </tr>
+                                                                                                <tr>
+                                                                                                        <td colspan="6" class='linkNivel2Space'></td>
+                                                                                                </tr>
+                                                                                                <tr>
+                                                                                                        <td colspan="6" class='linkNivel2' onclick="indisponivel()">Legislação</td>
+                                                                                                </tr>
+                                                                                                <tr>
+                                                                                                        <td colspan="6" class='linkNivel2Space'></td>
+                                                                                                </tr>
+                                                                                                <tr>
+                                                                                                        <td height="1px"></td>
+                                                                                                        <td></td>
+                                                                                                        <td></td>
+                                                                                                        <td></td>
+                                                                                                        <td></td>
+                                                                                                        <td></td>
+                                                                                                </tr>                                                                 
+                                                                                            </table>
+                                                                                    </td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td height="1px"></td>
+                                                                                    <td></td>
+                                                                                    <td></td>
+                                                                                    <td></td>
+                                                                                </tr>
+                                                                        </table> 
+                                                                    </div>
+                                                                            
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td height="1px"></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                        </tr>                    
+                                                    </table>                                             
+                                        </div> 
+<!-- ########### Tela publicacoes - listar ########### -->                                        
+                                        <div id='appPublicacoesListar' class='appPagina appLargura2 hidden' draggable='true'>
+                                            <table class='appLargura2' cellspacing="0" cellpadding="0">
+                                                <tr>
+                                                    <td colspan="4" align="right" valign="top" height="50px" class='appLargura2'>
+                                                        <img src="img/publicacoes.png">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="4" align="center" valign="top" class='appLargura2'>
+                                                        <div id='appPublicacoesDiv' class="appListaDivScrlolling">
+                                                            <table id="publicacoesTable" class="lista table-striped appLargura2">
+                                                                    <tbody id="publicacoesTbody">
+                                                                    </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                        <td colspan="4" class='linkNivel2Space'></td>
+                                                </tr>                                                                                     
+                                                <tr>
+                                                    <td height="1px"></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>                    
+                                            </table>                                             
+                                        </div>
+<!-- ########### FIM DE GRUPO DE TELAS PUBLICACOES ########### -->
+
+<!-- ########### Tela tabela de listagem ########### -->                                        
+                                        <div id='appLista' class='appPagina appLargura2 hidden' draggable='true'>
+                                            <table class='appLargura2' cellspacing="0" cellpadding="0">
+                                                <tr>
+                                                    <td colspan="4" align="right" valign="top" height="60px" class='appLargura2'>
+                                                        <img id="listaImg">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                        <td colspan="4" valign="top" height="60px" class='appLargura2'>
+                                                                <div id='listaDiv' class="appListaDivScrlolling">
+                                                                        <table class='appLargura2' cellspacing="0" cellpadding="0">
+                                                                                <tr>
+                                                                                        <td colspan="4" align="center" valign="top" height="50px" class='appLargura2'>                                                        
+                                                                                                <table id="listaTable" class="lista table-striped appLargura2">
+                                                                                                        <thead>
+                                                                                                            <tr>
+                                                                                                                <th id="listaTitulo" ></th>
+                                                                                                            </tr>
+                                                                                                        </thead>
+                                                                                                        <tbody id="listaTbody">
+                                                                                                        </tbody>
+                                                                                                        <tfoot>
+                                                                                                            <tr>
+                                                                                                                <td style="height: 5px; background-color: rgba(0, 0, 0, 0.4)"></td>
+                                                                                                            </tr>
+                                                                                                        </tfoot>
+                                                                                                    </table>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                        </table>
+                                                                </div>
+                                                        </td>
+                                                </tr>                                                                                             
+                                                <tr>
+                                                    <td height="1px"></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>                    
+                                            </table>                                             
+                                        </div>
+<!-- ########### Tela inicial geral ########### -->
+                                        <div id='appTelaInicio' class='appPagina appLargura2 hidden' draggable='true'>
+                                            <table class='appLargura2' cellspacing="0" cellpadding="0">
+                                                <tr>
+                                                    <td colspan="4" align="right" valign="top" height="60px" class='appLargura2'>
+                                                        <img src="">
+                                                    </td>
+                                                </tr>                                                
+                                                <tr>
+                                                    <td colspan="4" align="center" valign="top" class='appLargura2'>
+                                                        <div id='appTelaInicioDiv' class="appListaDivScrlolling">
+                                                            <table border=0 id="appTelaInicioTable" class="appLargura2">
+                                                            </table>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td height="1px"></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>                    
+                                            </table>                                             
+                                        </div>
+<!-- ########### Tela detalhes geral ########### -->                                        
+                                        <div id='appDetalhes' class='appPagina appLargura2 hidden' draggable='true'>
+                                            <table width="300px" cellspacing="0" cellpadding="0">
+                                                <tr>
+                                                    <td colspan="4" align="right" valign="top" height="60px">
+                                                            <img src="">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="4" valign="top" style="background-color: rgba(255, 255, 255, 1); text-align: center;">
+                                                    <div id="detalhesDiv">
+                                                        <table id="detalhesTable" class="listaDetalhes" style="background-color: rgba(255, 255, 255, 1); padding: 2px">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th id="tituloDetalhes">DETALHES</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody id="detalhesTbody" >
+                                                            </tbody>
+                                                        </table> 
+                                                    </div>                                                      
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td height="40px" id="detalhesBotoes">
+                                                        <button style="margin-top: 5px" class="button buttonPointer" id="detalhesBtn">Fechar</button>
+                                                    </td>
+                                                </tr> 
+                                                <tr>
+                                                    <td widht="25px" height="1px"></td>
+                                                    <td widht="25px"></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>                    
+                                            </table>                                             
+                                        </div>
+            </div>
+            <div id="navbar"><img src="img/setaBlack.png"></div>
+<!--             <div id="navbar"><div id="navbarVoltar"><span>voltar<img src="img/voltar.png"></span></div></div>
+            <div id="navbarMensagens"></div> -->
+        </div>      
+        <script type="text/javascript" src="js/snap.js"></script>
+        <script type="text/javascript">
+            var snapper = new Snap({
+                element: document.getElementById('content'),
+            });            
+        </script>
+        <script type="text/javascript" src="js/dragMenu.js"></script>
+    </body>
+</html>

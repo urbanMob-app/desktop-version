@@ -1,0 +1,58 @@
+label {display: block}
+select,textarea,input {max-width: 100%;padding: 0;margin: 0;font-family: inherit;font-weight: inherit;font-size: inherit;color: inherit}
+select:disabled {background-color: rgba(255, 255, 255, 0.5)}
+.form-row {position: relative;margin-top: 30px}
+.form-label {position: absolute;top: 17px;left: 20px;color: #999;cursor: text;transition: all .2s ease-in-out 0s}
+.form-textbox {	box-shadow: inset 0 0 10px rgba(0,0,0,.1)}
+.form-textbox:focus ~ .form-label, .form-textbox:valid ~ .form-label {top: -1.5em;left: 0;font-size: .8em;color: inherit;cursor: pointer}
+#inputBusca::-webkit-search-cancel-button{position:relative;right:0px;-webkit-appearance: none;width: 12px;height: 12px;border-radius:6px;border: 0px;background: rgba(0,0,0,0) url(../img/ic_x.png) no-repeat right 0px center;background-size: 12px 12px}
+.month{width: 70%;height: 25px}
+.clndr-previous-button .clndr-next-button{width:100%;height:100%;font-size: normal}
+.clndr-control-button{width:15%;height:25px}
+.clndr-table{width:100%;background-color: rgba(0,0,0,0)}
+.clndr-table thead tr{background-color: rgba(0,0,0,0)}
+.clndr-table tbody tr{background-color: rgba(0,0,0,0)}
+.clndr-table tr{background-color: rgba(0,0,0,0)}
+.header-days{background-color: rgba(0,0,0,0)}
+.day{background-color: rgba(0,0,0,0)}
+.event{background-color: rgba(70,130, 180, 0.5)}
+.adjacent-month{color: rgba(0, 0, 0, 0.3)}
+.busca::placeholder {color: white}
+.busca::-webkit-input-placeholder {color: white}
+.busca::-moz-placeholder {color: white}
+.busca:-ms-input-placeholder {color: white}
+.busca:-moz-placeholder {color: white}
+.sliderCombustivel::-webkit-slider-thumb {appearance: none;width: 25px;height: 25px;background: #4CAF50}
+.sliderCombustivel::-moz-range-thumb {width: 15px;height: 25px;background: #4CAF50}
+.formEscalas{background: rgba(0,0,0,0.4)}
+input[type=date] {font-size: large;width: 135px}
+input[type=date]:disabled {background-color: rgba(255, 255, 255, 0.5)}
+.formPermuta{text-align: center}
+#horarioSolicitado{width: 150px;margin-left: 5px}
+#horarioSolicitante{width: 150px;margin-left: 5px}
+#appDetalhes{overflow-y: auto;overflow-x: hidden}
+#detalhesTd{height: 20px; background-color: rgba(0, 0, 0, 0.1); color: rgba(0, 0, 0, 1); font-size:18px; font-weight: bold}
+.listaDetalhes{font-family: 'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif, verdana;color: rgba(0, 0, 0, 1);font-size: small}
+.listaDetalhes th{background-color: rgba(0, 0, 0, 0.4);height: 25px;width: 292px}
+.listaDetalhes td{height: 24px;padding: 3px;text-align: center}
+#detalhesDiv{position: relative;overflow-y: scroll;overflow-x: hidden;width: 300px;height: 330px;border-bottom-left-radius: 5px;border-bottom-right-radius: 5px}
+#detalhesTable{margin-left: 0px;width: 300px}
+.area ul {list-style-type: none}
+.area {width: 286px;height: 80px}
+.weekdays {margin: 0;padding: 10px 0;background-color: #ddd}
+.weekdays li {display: inline-block;width: 13.6%;color: #666;font-size: small;text-align: center}
+.days {padding: 10px 0;background: #eee;margin: 0}
+.days li {list-style-type: none;display: inline-block;width: 13.6%;text-align: center;margin-bottom: 5px;font-size:small;color: rgb(0, 0, 0)}
+.days li .active {padding: 5px;background: #1abc9c;color: white}
+.days li .activeDiaSolicitado {padding: 5px;background: #1abc9c;color: white}
+.days li .activeDiaSolicitante {padding: 5px;background: blueviolet;color: white}
+.spanLegendaDia {padding: 2px;color: white;font-weight: bold}
+.days li .activeMesmoDia {padding: 5px;background: orange;color: white}
+.days li .grupoA {color: green}
+.coordenadorDoDia{background-color: rgba(255, 255, 255, 0.3);vertical-align: middle;border-radius: 5px;border-spacing: 0px;border-width: 0px;border-bottom-width: 0px;border-left-width: 0px;text-align: center;padding: 0px;font-family: verdana, 'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif;color: #000000;font-size: small;height: 50px;width: 297px;cursor: pointer}
+.dadosmainmenu{vertical-align: middle;border-radius: 5px;border-spacing: 0px;border-width: 0px;border-bottom-width: 0px;border-left-width: 0px;text-align: center;padding: 0px;font-family: verdana, 'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif;color: #000000;font-size: small;height: 50px;width: 260px;cursor: pointer}
+#dadosmainmenuNome{font-size: small;text-transform: uppercase}
+#dadosmainmenuPosto{font-weight: normal;font-size: x-small;text-transform: uppercase}
+#dadosmainmenuPerfil{font-weight: normal;font-size: x-small} 
+button:focus, textarea:focus, input:focus, select:focus {box-shadow: 0 0 0 0;border: 0 none;outline: 0}
+

@@ -1,0 +1,5 @@
+yarn run start (to electron-forge start)
+yarn run start-forge (to electron-forge start)
+yarn run package (to electron-forge package)
+yarn run make (to electron-forge make)
+yarn run publish (to electron-forge publish)

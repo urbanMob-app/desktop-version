@@ -1,0 +1,17 @@
+node_modules/*
+out/*
+dist/*
+dist/linux-unpacked/*
+dist/builder-debug.yml
+dist/builder-effective-config.yaml
+dist/latest-linux.yml
+dist/urbanmob-desktop_1.0.0_amd64.deb
+dist/urbanmob-desktop_1.0.0_amd64.snap
+dist/urbanmob-desktop-1.0.0.tar.xz
+dist/urbanmob-desktop-1.0.0.AppImage
+dist/linux-unpacked/urbanmob-desktop
+OLD/telaPosLogin.zip
+OLD/index_OLD.html
+package_OLD.json
+OLD/index.html
+OLD/telaPosLogin.html

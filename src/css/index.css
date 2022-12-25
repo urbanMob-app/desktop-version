@@ -1,0 +1,201 @@
+ ::-webkit-scrollbar { width: 0px; height: 0px; }
+ ::-webkit-scrollbar-track:enabled { background-color: #000000; }
+ ::-webkit-scrollbar-thumb:vertical { background-color: #000000; }
+ ::-webkit-scrollbar-thumb:horizontal { background-color: #000000; }
+
+* {
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    -webkit-tap-highlight-color: transparent;
+    margin:0px;
+}
+
+body {
+    -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
+    -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
+    -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
+    /* background: url(../img/background.png) repeat; */
+    background-clip: content-box;     
+    background-attachment: fixed; 
+    background-position: initial;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background-color: #000000;
+    font-family:'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif, verdana;
+    font-size: small;
+    height:100%;
+    width:100%;    
+    margin:0px;
+    padding:0px;
+    text-transform:none;
+    overflow: hidden;
+    scrollbar-base-color: #000000;
+    scrollbar-track-color: #000000;    
+}
+
+.telaFull {
+    height: 100vh;        /* Viewport-relative units */
+    width: 100vw;
+}
+
+#alertTelaDiv{
+    display: none;
+    position:absolute;    
+    width: 100%;
+    height: 100%;       
+    z-index:800;
+    margin-left: 0px;
+    margin-top: 0px;
+    border: 0;
+    overflow: hidden;
+    text-align: center;
+}
+
+#alertTelaDivCentro{
+    display: block;
+    position:absolute;
+    width: 220px;
+    height: 90px;
+    z-index:100;
+    margin-left: -110px;
+    margin-top: -45px;
+    left: 50%;
+    top: 50%;    
+    background-color: rgba(0, 0, 0, 0.8);
+    border: 0;
+    overflow: hidden;
+	text-align: center;
+	font-size: x-small;
+	font-family: Arial, Helvetica, sans-serif;
+	color: #fff;
+	font-weight: bold;
+    border-radius: 5px;
+}
+
+#pausaDeTelaDivIndex{
+    display: none;
+    position:absolute;    
+    width: 100%;
+    height: 100%;       
+    z-index:100;
+    margin-left: 0px;
+    margin-top: 0px;
+    border: 0;
+    overflow: hidden;
+    text-align: center;
+}
+
+#pausaDeTelaDivCentroIndex{
+    display: block;
+    position:absolute;    
+    width: 100px;
+    height: 60px;       
+    z-index:99;
+    margin-left: -50px;
+    margin-top: -30px;
+    left: 50%;
+    top: 50%;    
+    background:#000000;
+	background-color: rgba(0, 0, 0, 0.8); 
+    border: 0;
+    overflow: hidden;
+    text-align: center;
+    border-radius: 7px;
+}
+
+/* #pausaDeTelaDivIndex{
+    display: none;
+    position:absolute;
+    background:#000000;
+    filter:alpha(opacity=70);
+    opacity: 0.7;
+    -moz-opacity:0.7;
+    -webkit-opacity:0.7;              
+    z-index:100;  
+    border: 0;
+} */
+
+/* #pausaDeTelaDivCentroIndex{
+    display: block;
+    position:absolute;    
+    width:240px;
+    height:120px;
+    z-index:99;
+    left: 50%;
+    top: 50%;
+    margin-left: -120px;
+    margin-top: -60px;   
+    border: 0;
+} */
+
+#iframeApp {
+    display: block;       /* iframes are inline by default */
+    /* background: #002256; */
+    background: #000000;
+    border: none;
+    overflow: hidden;
+    overflow-y: hidden;
+    z-index:1;
+}
+
+.carregando{
+    position: absolute;
+    left: 50%;
+    top: 50%;    
+    margin-left: -27px;
+    margin-top: -45px;    
+    border: 0;    
+    font-family: Arial, Helvetica, sans-serif;
+    color: #ffffff;
+    animation:fading 7s infinite}@keyframes fading{0%{opacity:0.2}50%{opacity:1}100%{opacity:0.2}
+}
+
+.progressbar {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    left: 50%;
+    top: 50%;
+    margin-left: -20px;
+    margin-top: -20px;
+    border: 0;
+    color: #ffffff;
+    font-size:64px;
+}
+
+/* Portrait layout (default) */
+.app {
+    /* */     
+    position:absolute;             /* position in the center of the screen */
+    height:100%;                   /* text area height */
+    width:100%;                   /* text area width */
+    overflow: auto;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;    
+}
+
+/* Landscape layout (with min-width) */
+@media screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
+    .app {
+        background-position:left center;
+        padding:75px 0px 75px 170px;  /* padding-top + padding-bottom + text area = image height */
+        margin:-90px 0px 0px -198px;  /* offset vertical: half of image height */
+                                      /* offset horizontal: half of image width and text area width */
+    }
+}
+
+@keyframes fade {
+    from { opacity: 1.0; }
+    50% { opacity: 0.4; }
+    to { opacity: 1.0; }
+}
+ 
+@-webkit-keyframes fade {
+    from { opacity: 1.0; }
+    50% { opacity: 0.4; }
+    to { opacity: 1.0; }
+}

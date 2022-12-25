@@ -1,0 +1,558 @@
+// Arquivo com funções de uso geral
+var urlGeral = "http://www.smtt.890m.com/";
+
+(function( $ ){
+$.fn.alertaTela = function(msg) {
+    this.delay(50).fadeIn().delay(3000).fadeOut();
+    $("#alertTelaTd").text(msg);
+};
+
+$.fn.telaInitJquery = function(show){
+    this.hide();
+    $("#"+show).show();
+};
+
+$.fn.downloadFile = function(arquivo){
+    var fileName = arquivo.split("/");
+    var keyFileName = fileName.length-1;
+// verificar o substr se retorna a extensão    
+    var extension = fileName[keyFileName].substr(-1,3);
+    var uriF = encodeURI(arquivo);
+    var fileURL = cordova.file.externalApplicationStorageDirectory;
+// trabalhar os mime types
+    var mimeType = 'application/pdf';
+    
+
+    console.log(keyFileName);
+    console.log(extension);
+    var fileTransfer = new FileTransfer();
+    fileTransfer.download(
+        uriF,
+        fileURL+fileName[keyFileName],
+        function(entry) {
+            console.log("download complete: " + entry.toURL());
+            $('#alertTelaDiv').alertaTela("Abrindo...");
+            cordova.plugins.SitewaertsDocumentViewer.viewDocument(fileURL+fileName[keyFileName], mimeType);
+        },
+        function(error) {
+            console.log("download error source " + error.source);
+            console.log("download error target " + error.target);
+            console.log("download error code" + error.code);
+            $('#alertTelaDiv').alertaTela("Falhou ao realizar o download!");
+        },
+        false,
+        {
+            headers: {
+                "Authorization": "Basic dGVzdHVzZXJuYW1lOnRlc3RwYXNzd29yZA=="
+            }
+        }
+    );
+};
+})( jQuery );
+
+$(document).ready(function(){
+    $(".matricula").mask("9999");
+    $(".cep").mask("99999999");
+    $(".data").mask("99/99/9999");
+    $(".identidade").mask("99999999999");
+    $(".km").mask("9999999");
+    $(".renavam").mask("99999999999");
+    $(".apelidoVeiculo").mask("AAAAAAAAAAAAAAAA", {'translation': {
+                    A: {pattern: /[A-Za-z]/},
+    }
+    });
+    $(".cpf").mask("999.999.999-99");
+    $(".cnpj").mask("99.999.999/9999-99");
+    $(".telefoneFixo").mask("(00) 0000-0009");
+    $(".telefoneCelular").mask("(00) 00000-0009");
+    $(".inputPlaca").mask("AAA-0000", {'translation': {
+                    A: {pattern: /[A-Za-z]/},
+                    0: {pattern: /[0-9]/}
+            }
+    });
+    $(".inputKm").mask("000.000 km", {'translation': {
+                    0: {pattern: /[0-9]/}
+            }
+    });
+});
+
+function indisponivel(){
+    $('#alertTelaDiv').alertaTela("Funcionalidade ainda não disponível para esta versão.");
+}
+
+function bloqueado(){
+    $('#alertTelaDiv').alertaTela("Você não possui nível de permissão suficiente para usar este recurso.");
+}
+
+function atualizarLogin(){
+    var loginAtual = window.localStorage.getItem("login");
+    if(loginAtual == true){
+        var uri = urlGeral+"validarDispositivoAppi";
+        var varSenha = window.localStorage.getItem("senha");
+        var varMatricula = window.localStorage.getItem("matricula");
+        var varIdEquip = window.localStorage.getItem("idEquip");;
+        var dados={
+            idEquip: varIdEquip,
+            mobile: true,
+            matricula: varMatricula,
+            senha: varSenha
+        };    
+        $.post(uri,dados,
+            function(retorno){
+                window.localStorage.setItem("login", retorno["login"]);
+                var login = retorno["login"];
+                if(login == true){
+                    window.localStorage.setItem("retorno", JSON.stringify(retorno));
+                    window.localStorage.setItem("dispositivos", JSON.stringify(retorno["dispositivos"]));
+                    window.localStorage.setItem("login", retorno["login"]);
+                    window.localStorage.setItem("hash", retorno["hash"]);
+                    montagemDeTela();
+                    document.getElementById("pausaDeTelaDiv").style.display = "none"; // retira pausa de tela
+                }
+                else{
+                    document.getElementById("pausaDeTelaDiv").style.display = "block";
+                }
+            },
+        "json")
+    }
+}
+
+function telaInit(classReset,focus,idTela,idTelaBack){
+    var x = document.getElementsByClassName(classReset);
+    var i = 0;
+    for (i = 0; i < x.length; i++) {
+        x[i].style.display = "none";
+    }
+    
+    if(typeof idTela == 'undefined' || idTela=="" || idTela == "appPagina1"){
+        document.getElementById("navbarVoltar").style.display = "none";
+        document.getElementById("navbar").style.display = "none";
+        document.getElementById("open-left").style.display = "block";
+        idTela = 'appPagina1';
+    }
+/*     else if(idTela == "appPagina1"){
+        document.getElementById("navbarVoltar").style.display = "none";
+        document.getElementById("navbar").style.display = "none";
+        document.getElementById("open-left").style.display = "block";
+    } */
+    else{
+        document.getElementById("open-left").style.display = "none";
+        document.getElementById("navbar").style.display = "block";
+        document.getElementById("navbarVoltar").style.display = "block";
+        $("#navbarVoltar").unbind();
+        $("#navbarVoltar").click(function(){
+                telaInit('appPagina','',idTelaBack,'appPagina1');
+        });
+        $("#navbar").unbind();
+        $("#navbar").click(function(){
+                telaInit('appPagina','',idTelaBack,'appPagina1');
+        });
+    }
+
+    
+    document.getElementById(idTela).style.display = "block";
+    if(focus.length > 0){$("#focus").focus();}
+}
+
+function exibirOcultarSenha(idName,idImg,className){
+    var tipo = document.getElementById(idName).type;
+    if(tipo == "password"){
+        if(className.length > 1){
+            var x = document.getElementsByClassName(className);
+            var i;
+            for (i = 0; i < x.length; i++) {
+                x[i].type = "text";
+            }
+        }
+        else{
+            document.getElementById(idName).type = "text";
+        }
+        document.getElementById(idImg).src = "img/resource_link_images/ocultarSenha.png";
+    }
+    else{
+        if(className.length > 1){
+            var x = document.getElementsByClassName(className);
+            var i;
+            for (i = 0; i < x.length; i++) {
+                x[i].type = "password";
+            }            
+        }
+        else{
+            document.getElementById(idName).type = "password";
+        }
+        document.getElementById(idImg).src = "img/resource_link_images/exibirSenha.png";
+    }
+}
+
+function checarPreenchimentoCompletoForm(idName,className){
+    var campo = document.getElementById(idName).getElementsByClassName(className);
+    var validado = window.localStorage.getItem("validado");
+    var validadoCPF = window.localStorage.getItem("validadoCPF");
+    var dataNascimento = document.getElementById("nascimentoCredencial").value;
+    var masculino = document.getElementById("masculino").checked;
+    var feminino = document.getElementById("feminino").checked;
+    var validadoIdade = 1;
+
+    // se formulário é de credencial idoso, a quantidade de campos é 9, bloqueia o restante
+    if(campo[0].value == 'idoso'){
+        var camposLength = 9;
+        if(dataNascimento.length > 0){
+            var d = new Date();
+            var anoAtual = d.getFullYear();
+            var mesAtual = d.getMonth()+1;
+            var diaAtual = d.getDate();
+            var dataNascimentoArray = dataNascimento.split("-");
+            var ano = dataNascimentoArray[0];
+            var mes = parseInt(dataNascimentoArray[1]);
+            var dia = parseInt(dataNascimentoArray[2]);
+            var idade = anoAtual-ano;
+
+            if(ano <= (anoAtual-60) && ano >= (anoAtual-120)){
+                if(idade >= 61){
+                    validadoIdade = 1;
+                }
+                else if(idade == 60){
+                    if(mesAtual > mes){
+                        validadoIdade = 1;
+                    }
+                    else if(mesAtual == mes){
+                        if(dia <= diaAtual){
+                            validadoIdade = 1;
+                        }
+                        else{
+                            validadoIdade = 0;
+                        }
+                    }
+                    else{
+                        validadoIdade = 0;
+                    }
+                }
+                else{
+                    validadoIdade = 0;
+                }
+            }
+            else{
+                validadoIdade = 0;
+            }     
+        }
+    }
+    else{var camposLength = campo.length;}
+    var contagem = 0;
+    for(i=0;i<camposLength;i++){
+        if(campo[i].value.length > 0){contagem++;}
+    }
+    if(contagem == camposLength && validado == 1 && validadoCPF == 1 && validadoIdade == 1 && (masculino == true || feminino==true)){
+        document.getElementById(className+"Btn").disabled = false;
+        document.getElementById(className+"Btn").style.backgroundColor = 'rgba(255, 204, 0, 1)';
+    }
+    else{
+        document.getElementById(className+"Btn").disabled = true;
+        document.getElementById(className+"Btn").style.backgroundColor = 'rgba(0, 0, 0, 0.3)';
+    }
+}
+
+function validarNomeCompleto(campo,className){
+    var nomeCompleto = document.getElementById(campo).value;
+    var words = nomeCompleto.split(" ");
+    var contaWords = 0;
+    for(i=0;i<words.length;i++){
+        if(words[i].length > 0){contaWords++;}
+    }
+    if(nomeCompleto.length < 12 | contaWords < 2){
+        document.getElementById("verificadorNome").src = "img/resource_link_images/verificado_not.png";
+        document.getElementById(className+"Btn").disabled = true;
+        document.getElementById(className+"Btn").style.backgroundColor = 'rgba(0, 0, 0, 0.3)';
+        window.localStorage.setItem("validado",0);
+    }
+    else{
+        document.getElementById("verificadorNome").src = "img/resource_link_images/verificado_ok.png";
+        window.localStorage.setItem("validado",1);
+    }
+}
+
+function validarCPFsetorizado(setor) {
+    var cpf = document.getElementById("cpf"+setor).value;
+    window.localStorage.setItem("validadoCPF",0);
+    imgVerificador(0,setor);
+    function imgVerificador(varReturn,setor){
+        if(varReturn == true){
+            document.getElementById("verificadorCpf"+setor).src = "img/resource_link_images/verificado_ok.png";
+        }
+        else{
+            document.getElementById("verificadorCpf"+setor).src = "img/resource_link_images/verificado_not.png";
+        }
+    }
+    
+    cpf = cpf.replace(/[^\d]+/g,'');	
+    
+    if(cpf.length < 11){ 
+        
+        return false;
+    }
+
+	if(cpf == ''){ 
+        
+        return false;
+    }	
+	// Elimina CPFs invalidos conhecidos	
+	if (cpf.length != 11 || 
+		cpf == "00000000000" || 
+		cpf == "11111111111" || 
+		cpf == "22222222222" || 
+		cpf == "33333333333" || 
+		cpf == "44444444444" || 
+		cpf == "55555555555" || 
+		cpf == "66666666666" || 
+		cpf == "77777777777" || 
+		cpf == "88888888888" || 
+		cpf == "99999999999"){
+            
+            return false;	
+        }	
+	// Valida 1o digito	
+	add = 0;	
+	for (i=0; i < 9; i ++)		
+		add += parseInt(cpf.charAt(i)) * (10 - i);	
+		rev = 11 - (add % 11);	
+		if (rev == 10 || rev == 11){
+            rev = 0;
+        }	
+		if (rev != parseInt(cpf.charAt(9))){
+            return false;		
+        }
+	// Valida 2o digito	
+	add = 0;	
+	for (i = 0; i < 10; i ++)		
+		add += parseInt(cpf.charAt(i)) * (11 - i);	
+	rev = 11 - (add % 11);	
+	if (rev == 10 || rev == 11)	
+		rev = 0;	
+	if (rev != parseInt(cpf.charAt(10))){
+        
+        return false;		
+    }
+    imgVerificador(1,setor);
+    // aqui, enviar jquery para verificar se CPF já possui solicitação, criar arquivo websrvice com esta finalidade
+    function checarCPF(setor){
+        //window.localStorage.setItem("idEquip","e86efde5525dad16");
+        var varCpf = document.getElementById("cpf"+setor).value;
+        var varSenha = window.localStorage.getItem("senha");
+        var varEmail = window.localStorage.getItem("email");
+        var varIdEquip = window.localStorage.getItem("idEquip");
+        var varTipo = document.getElementById("tipo"+setor).value;
+        var dados={
+            idEquip: varIdEquip,
+            mobile: true,
+            email: varEmail,
+            senha: varSenha,
+            cpf: varCpf,
+            tipo: varTipo,
+        };
+        var uri = "https://www.smtfeiradesantana.com.br/appe/checarCpf"+setor;
+            $.post(uri,dados,
+                function(retorno){
+                    document.getElementById("pausaDeTelaDiv").style.display = "none";
+                    if(retorno["liberado"]==true){
+                        // aqui, libera o restante do preenchimento (talvez baste o return)
+                        window.localStorage.setItem("validadoCPF",1);
+                        document.getElementById("cpf"+setor).blur();
+                        return true;
+                    }
+                    else{
+                        // aqui, bloqueia o form e não permite prosseguir (talvez baste o return)
+                        window.localStorage.setItem("validadoCPF",0);
+                        // mensagem de tela
+                        $('#alertTelaDiv').alertaTela(retorno["mensagemErro"]);
+                        return false;
+                    }
+                },
+            "json")
+                .fail(
+                    function(){
+                        window.localStorage.setItem("validadoCPF",0);
+                        return false;
+                    }
+            );   
+    }
+    if(setor == 'Credencial'){
+        if(checarCPF(setor)){
+            return true;
+        }
+        else{
+            window.localStorage.setItem("validadoCPF",0);
+            return false;
+        }
+    }
+    else{
+        window.localStorage.setItem("validadoCPF",1);
+        return true;
+    }
+}
+
+function validarCPF(cpf) {
+	cpf = cpf.replace(/[^\d]+/g,'');
+	if(cpf == ''){ 
+        return false;
+    }
+	// Elimina CPFs invalidos conhecidos	
+	if (cpf.length != 11 || 
+		cpf == "00000000000" || 
+		cpf == "11111111111" || 
+		cpf == "22222222222" || 
+		cpf == "33333333333" || 
+		cpf == "44444444444" || 
+		cpf == "55555555555" || 
+		cpf == "66666666666" || 
+		cpf == "77777777777" || 
+		cpf == "88888888888" || 
+		cpf == "99999999999"){
+            return false;
+        }	
+	// Valida 1o digito	
+	add = 0;
+	for (i=0; i < 9; i ++)
+		add += parseInt(cpf.charAt(i)) * (10 - i);	
+		rev = 11 - (add % 11);	
+		if (rev == 10 || rev == 11){
+            rev = 0;
+        }	
+		if (rev != parseInt(cpf.charAt(9))){
+            return false;		
+        }
+	// Valida 2o digito	
+	add = 0;	
+	for (i = 0; i < 10; i ++)		
+		add += parseInt(cpf.charAt(i)) * (11 - i);	
+	rev = 11 - (add % 11);	
+	if (rev == 10 || rev == 11)	
+		rev = 0;	
+	if (rev != parseInt(cpf.charAt(10))){
+        return false;		
+    }
+	return true;   
+}
+
+function validarCNPJsetorizado(setor) {
+    var cnpj = document.getElementById("cnpj"+setor).value;
+    window.localStorage.setItem("validadoCNPJ",0);
+    imgVerificadorCNPJ(0,setor);
+    function imgVerificadorCNPJ(varReturn,setor){
+        if(varReturn == true){
+            document.getElementById("verificadorCnpj"+setor).src = "img/resource_link_images/verificado_ok.png";
+        }
+        else{
+            document.getElementById("verificadorCnpj"+setor).src = "img/resource_link_images/verificado_not.png";
+        }
+    }
+ 
+    cnpj = cnpj.replace(/[^\d]+/g,'');
+ 
+    if(cnpj == '') return false;
+     
+    if (cnpj.length != 14)
+        return false;
+ 
+    // Elimina CNPJs invalidos conhecidos
+    if (cnpj == "00000000000000" || 
+        cnpj == "11111111111111" || 
+        cnpj == "22222222222222" || 
+        cnpj == "33333333333333" || 
+        cnpj == "44444444444444" || 
+        cnpj == "55555555555555" || 
+        cnpj == "66666666666666" || 
+        cnpj == "77777777777777" || 
+        cnpj == "88888888888888" || 
+        cnpj == "99999999999999")
+        return false;
+         
+    // Valida DVs
+    tamanho = cnpj.length - 2
+    numeros = cnpj.substring(0,tamanho);
+    digitos = cnpj.substring(tamanho);
+    soma = 0;
+    pos = tamanho - 7;
+    for (i = tamanho; i >= 1; i--) {
+      soma += numeros.charAt(tamanho - i) * pos--;
+      if (pos < 2)
+            pos = 9;
+    }
+    resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
+    if (resultado != digitos.charAt(0))
+        return false;
+         
+    tamanho = tamanho + 1;
+    numeros = cnpj.substring(0,tamanho);
+    soma = 0;
+    pos = tamanho - 7;
+    for (i = tamanho; i >= 1; i--) {
+      soma += numeros.charAt(tamanho - i) * pos--;
+      if (pos < 2)
+            pos = 9;
+    }
+    resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
+    if (resultado != digitos.charAt(1))
+          return false;
+          
+    imgVerificadorCNPJ(1,setor);
+    window.localStorage.setItem("validadoCNPJ",1);
+    return true;
+    
+}
+
+function validarCNPJ(cnpj) { 
+    cnpj = cnpj.replace(/[^\d]+/g,'');
+ 
+    if(cnpj == '') return false;
+     
+    if (cnpj.length != 14)
+        return false;
+ 
+    // Elimina CNPJs invalidos conhecidos
+    if (cnpj == "00000000000000" || 
+        cnpj == "11111111111111" || 
+        cnpj == "22222222222222" || 
+        cnpj == "33333333333333" || 
+        cnpj == "44444444444444" || 
+        cnpj == "55555555555555" || 
+        cnpj == "66666666666666" || 
+        cnpj == "77777777777777" || 
+        cnpj == "88888888888888" || 
+        cnpj == "99999999999999")
+        return false;
+         
+    // Valida DVs
+    tamanho = cnpj.length - 2
+    numeros = cnpj.substring(0,tamanho);
+    digitos = cnpj.substring(tamanho);
+    soma = 0;
+    pos = tamanho - 7;
+    for (i = tamanho; i >= 1; i--) {
+      soma += numeros.charAt(tamanho - i) * pos--;
+      if (pos < 2)
+            pos = 9;
+    }
+    resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
+    if (resultado != digitos.charAt(0))
+        return false;
+         
+    tamanho = tamanho + 1;
+    numeros = cnpj.substring(0,tamanho);
+    soma = 0;
+    pos = tamanho - 7;
+    for (i = tamanho; i >= 1; i--) {
+      soma += numeros.charAt(tamanho - i) * pos--;
+      if (pos < 2)
+            pos = 9;
+    }
+    resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
+    if (resultado != digitos.charAt(1))
+          return false;
+           
+    return true;
+    
+}
+
+function mascararTelefone(numero){
+    var array = numero.split("");
+    return "("+array[0]+array[1]+")"+array[2]+array[3]+array[4]+array[5]+"-"+array[6]+array[7]+array[8]+array[9]+array[10];
+}
